@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemoExam</title>
+</head>
+<body>
+<main style="display:none;">
+    <h1>My Memo</h1>
+    <input type="text" id="title">
+    <button id="reflect">反映</button>
+    <textarea name="memo" id="memo_area" cols="30" rows="10"></textarea>
+    <button id="save">保存</button>
+    <button id="clear">消去</button>
+
+</main>
+<footer>
+    <small>Made in Yusuke</small>
+</footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+
+    $("main").slideDown(1000);
+
+    //反映
+     $("#reflect").on("click", function(){
+        if ($("#title").val()){
+            
+            const title = $("#title").val();
+            
+            if (localStorage.getItem(title)){
+                const val = localStorage.getItem(title);
+                $("#memo_area").val(val);
+            }
+        }
+
+        else{
+            alert("該当するデータがありません。")
+        }
+    });
+
+    //Save
+    $("#save").on("click", function(){
+        if ($("#title").val()){
+            
+            const title = $("#title").val();
+            const val = $("#memo_area").val();
+            localStorage.setItem(title, val);
+            alert("保存しました。");
+        }
+
+        else{
+            alert("タイトルが入力されていません。")
+        }
+        
+    });
+    //Clear
+    $("#clear").on("click", function(){
+        if ($("#title").val()){
+
+            const title = $("#title").val();
+
+            if (localStorage.getItem(title)){
+                
+                localStorage.removeItem(title);
+                $("#memo_area").val("");
+                alert("削除しました。");
+            }else{
+
+                $("#memo_area").val("");
+                alert("該当するデータが保存されていません。")
+            }
+            
+        }
+
+        else{
+            alert("タイトルが入力されていません。")
+        }
+    });
+    </script>
+</body>
+</html>
